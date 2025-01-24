@@ -199,7 +199,7 @@ export default function ShuffleTeams() {
     return (
       <div className="mt-2 space-y-2 p-2 bg-gray-100 rounded-lg">
         {(["passing", "dribbling", "pace"] as const).map((attr) => (
-          <div key={attr} className="flex items-center gap-2">
+          <div key={attr} className="flex items-center justify-between ">
             <label className="text-sm capitalize w-16">{attr}:</label>
             <input
               type="number"
@@ -211,12 +211,6 @@ export default function ShuffleTeams() {
               }
               className="w-16 p-1 border rounded text-sm"
             />
-            <div className="h-1.5 flex-1 bg-gray-200 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-[#00447c]"
-                style={{ width: `${(attributes[attr] / 10) * 100}%` }}
-              />
-            </div>
           </div>
         ))}
       </div>
