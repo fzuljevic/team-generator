@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import type { Player } from "@prisma/client";
 import {
   Select,
   SelectContent,
@@ -129,7 +128,7 @@ export default function ShuffleTeams() {
 
     // First, get all players with their attributes and sort by total rating
     const playersWithRatings = Object.entries(selectedPlayers)
-      .flatMap(([_, players]) => {
+      .flatMap(([, players]) => {
         const player1 = {
           ...(playerAttributes[players.player1] || {
             name: players.player1,
@@ -155,7 +154,7 @@ export default function ShuffleTeams() {
       });
 
     // Distribute players to balance teams
-    playersWithRatings.forEach((player, index) => {
+    playersWithRatings.forEach((player) => {
       const team1Rating = calculateTeamRating(team1);
       const team2Rating = calculateTeamRating(team2);
 
