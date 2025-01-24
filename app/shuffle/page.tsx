@@ -1,16 +1,4 @@
-import { PrismaClient } from "@prisma/client";
 import ShuffleTeams from "./ShuffleTeams";
-
-const prisma = new PrismaClient();
-
-async function getPlayers() {
-  const divisions = await prisma.division.findMany({
-    include: {
-      players: true,
-    },
-  });
-  return divisions;
-}
 
 export default async function ShufflePage() {
   return (
