@@ -12,30 +12,30 @@ async function main() {
     prisma.division.create({ data: { name: "Division 5" } }),
   ]);
 
-  // Add players to divisions (roughly distributed by skill level)
+  // Add players to divisions
   await prisma.player.createMany({
     data: [
-      // Division 1 (Top rated players)
-      { name: "Filip", rating: 9, divisionId: divisions[0].id },
-      { name: "Blekic", rating: 9, divisionId: divisions[0].id },
+      // Division 1
+      { name: "Filip", divisionId: divisions[0].id },
+      { name: "Blekic", divisionId: divisions[0].id },
 
       // Division 2
-      { name: "Ciko", rating: 8, divisionId: divisions[1].id },
-      { name: "Toni", rating: 8, divisionId: divisions[1].id },
+      { name: "Ciko", divisionId: divisions[1].id },
+      { name: "Toni", divisionId: divisions[1].id },
 
       // Division 3
-      { name: "Butko", rating: 7, divisionId: divisions[2].id },
-      { name: "Milos", rating: 7, divisionId: divisions[2].id },
+      { name: "Butko", divisionId: divisions[2].id },
+      { name: "Milos", divisionId: divisions[2].id },
 
       // Division 4
-      { name: "Rafi", rating: 6, divisionId: divisions[3].id },
-      { name: "Ljubo", rating: 6, divisionId: divisions[3].id },
-      { name: "Matija", rating: 6, divisionId: divisions[3].id },
+      { name: "Rafi", divisionId: divisions[3].id },
+      { name: "Ljubo", divisionId: divisions[3].id },
 
       // Division 5
-      { name: "Sila", rating: 5, divisionId: divisions[4].id },
-      { name: "Ivo", rating: 5, divisionId: divisions[4].id },
-      { name: "Sanko", rating: 5, divisionId: divisions[4].id },
+      { name: "Matija", divisionId: divisions[4].id },
+      { name: "Sila", divisionId: divisions[4].id },
+      { name: "Ivo", divisionId: divisions[4].id },
+      { name: "Sanko", divisionId: divisions[4].id },
     ],
   });
 }
