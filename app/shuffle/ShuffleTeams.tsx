@@ -229,7 +229,7 @@ export default function ShuffleTeams() {
         {/* Hero Section */}
         <div className="mb-4 sm:mb-8 md:mb-16 text-center">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-[#00447c]">
-            Team Generator
+            Team Generator (Blekic 2.0 🤖)
           </h1>
         </div>
 
