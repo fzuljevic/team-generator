@@ -8,6 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Slider } from "@/components/ui/slider";
 
 type PlayerAttributes = {
   name: string;
@@ -182,15 +183,15 @@ export default function ShuffleTeams() {
 
     return (
       <div className="mt-2 space-y-2 p-2 bg-gray-100 rounded-lg">
-        <div className="flex items-center gap-2">
-          <input
-            type="range"
-            min="1"
-            max="10"
-            value={attributes.rating}
-            onChange={(e) =>
-              handleAttributeChange(division, playerKey, e.target.value)
+        <div className="flex items-center gap-4">
+          <Slider
+            value={[attributes.rating]}
+            onValueChange={(value) =>
+              handleAttributeChange(division, playerKey, value[0].toString())
             }
+            min={1}
+            max={10}
+            step={1}
             className="flex-1"
           />
           <span className="text-sm font-medium w-8 text-center">
