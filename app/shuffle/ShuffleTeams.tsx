@@ -11,9 +11,7 @@ import {
 
 type PlayerAttributes = {
   name: string;
-  passing: number;
-  dribbling: number;
-  pace: number;
+  rating: number;
 };
 
 type SelectedPlayers = {
@@ -99,7 +97,6 @@ export default function ShuffleTeams() {
   const handleAttributeChange = (
     division: number,
     playerKey: "player1" | "player2",
-    attribute: keyof Omit<PlayerAttributes, "name">,
     value: string
   ) => {
     const playerName = selectedPlayers[division][playerKey];
@@ -109,56 +106,44 @@ export default function ShuffleTeams() {
     setPlayerAttributes((prev) => ({
       ...prev,
       [playerName]: {
-        ...prev[playerName],
         name: playerName,
-        [attribute]: numValue,
+        rating: numValue,
       },
     }));
   };
 
   const calculateTeamRating = (players: PlayerAttributes[]) => {
-    return players.reduce((sum, player) => {
-      return sum + (player.passing + player.dribbling + player.pace) / 3;
-    }, 0);
+    return players.reduce((sum, player) => sum + player.rating, 0);
   };
 
   const shuffleTeams = () => {
     const team1: PlayerAttributes[] = [];
     const team2: PlayerAttributes[] = [];
 
-    // First, get all players with their attributes and sort by total rating
+    // Get all players with their ratings and sort
     const playersWithRatings = Object.entries(selectedPlayers)
       .flatMap(([, players]) => {
         const player1 = {
           ...(playerAttributes[players.player1] || {
             name: players.player1,
-            passing: 5,
-            dribbling: 5,
-            pace: 5,
+            rating: 5,
           }),
         };
         const player2 = {
           ...(playerAttributes[players.player2] || {
             name: players.player2,
-            passing: 5,
-            dribbling: 5,
-            pace: 5,
+            rating: 5,
           }),
         };
         return [player1, player2];
       })
-      .sort((a, b) => {
-        const ratingA = (a.passing + a.dribbling + a.pace) / 3;
-        const ratingB = (b.passing + b.dribbling + b.pace) / 3;
-        return ratingB - ratingA; // Sort descending
-      });
+      .sort((a, b) => b.rating - a.rating);
 
     // Distribute players to balance teams
     playersWithRatings.forEach((player) => {
       const team1Rating = calculateTeamRating(team1);
       const team2Rating = calculateTeamRating(team2);
 
-      // Add to team with lower rating
       if (team1Rating <= team2Rating) {
         team1.push(player);
       } else {
@@ -191,28 +176,26 @@ export default function ShuffleTeams() {
     if (!playerName) return null;
 
     const attributes = playerAttributes[playerName] || {
-      passing: 5,
-      dribbling: 5,
-      pace: 5,
+      rating: 5,
     };
 
     return (
       <div className="mt-2 space-y-2 p-2 bg-gray-100 rounded-lg">
-        {(["passing", "dribbling", "pace"] as const).map((attr) => (
-          <div key={attr} className="flex items-center justify-between ">
-            <label className="text-sm capitalize w-16">{attr}:</label>
-            <input
-              type="number"
-              min="1"
-              max="10"
-              value={attributes[attr]}
-              onChange={(e) =>
-                handleAttributeChange(division, playerKey, attr, e.target.value)
-              }
-              className="w-16 p-1 border rounded text-sm"
-            />
-          </div>
-        ))}
+        <div className="flex items-center gap-2">
+          <input
+            type="range"
+            min="1"
+            max="10"
+            value={attributes.rating}
+            onChange={(e) =>
+              handleAttributeChange(division, playerKey, e.target.value)
+            }
+            className="flex-1"
+          />
+          <span className="text-sm font-medium w-8 text-center">
+            {attributes.rating}
+          </span>
+        </div>
       </div>
     );
   };
@@ -377,14 +360,12 @@ export default function ShuffleTeams() {
                     {team.players.map((player, playerIndex) => (
                       <li
                         key={playerIndex}
-                        className="flex flex-col space-y-1 border-b border-gray-100 pb-2"
+                        className="flex justify-between items-center border-b border-gray-100 pb-2"
                       >
                         <span className="font-medium">{player.name}</span>
-                        <div className="text-sm text-gray-500 flex gap-2">
-                          <span>P: {player.passing}</span>
-                          <span>D: {player.dribbling}</span>
-                          <span>Pa: {player.pace}</span>
-                        </div>
+                        <span className="text-sm text-gray-500">
+                          Rating: {player.rating}
+                        </span>
                       </li>
                     ))}
                   </ul>
