@@ -45,6 +45,7 @@ export default function ShuffleTeams() {
     "Sila",
     "Ivo",
     "Sanko",
+    "Celic",
   ]);
 
   const [selectedPlayers, setSelectedPlayers] = useState<SelectedPlayers>({
