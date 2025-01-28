@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import { useState } from 'react';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Slider } from "@/components/ui/slider";
+} from '@/components/ui/select';
+import { Slider } from '@/components/ui/slider';
 
 type PlayerAttributes = {
   name: string;
@@ -32,29 +32,29 @@ type Team = {
 
 export default function ShuffleTeams() {
   const [teams, setTeams] = useState<Team[]>([]);
-  const [newPlayer, setNewPlayer] = useState("");
+  const [newPlayer, setNewPlayer] = useState('');
   const [allPlayers, setAllPlayers] = useState<string[]>([
-    "Filip",
-    "Blekic",
-    "Ciko",
-    "Toni",
-    "Butko",
-    "Milos",
-    "Rafi",
-    "Ljubo",
-    "Matija",
-    "Sila",
-    "Ivo",
-    "Sanko",
-    "Celic",
+    'Filip',
+    'Blekic 🐐🇦🇷🔟',
+    'Ciko',
+    'Toni',
+    'Butko',
+    'Milos',
+    'Rafi',
+    'Ljubo',
+    'Matija',
+    'Sila',
+    'Ivo',
+    'Sanko',
+    'Celic',
   ]);
 
   const [selectedPlayers, setSelectedPlayers] = useState<SelectedPlayers>({
-    1: { player1: "", player2: "" },
-    2: { player1: "", player2: "" },
-    3: { player1: "", player2: "" },
-    4: { player1: "", player2: "" },
-    5: { player1: "", player2: "" },
+    1: { player1: '', player2: '' },
+    2: { player1: '', player2: '' },
+    3: { player1: '', player2: '' },
+    4: { player1: '', player2: '' },
+    5: { player1: '', player2: '' },
   });
 
   const [playerAttributes, setPlayerAttributes] = useState<{
@@ -65,13 +65,13 @@ export default function ShuffleTeams() {
     e.preventDefault();
     if (newPlayer.trim() && !allPlayers.includes(newPlayer.trim())) {
       setAllPlayers([...allPlayers, newPlayer.trim()]);
-      setNewPlayer("");
+      setNewPlayer('');
     }
   };
 
   const handlePlayerSelect = (
     division: number,
-    dropdownNumber: "player1" | "player2",
+    dropdownNumber: 'player1' | 'player2',
     playerName: string
   ) => {
     setSelectedPlayers((prev) => ({
@@ -98,7 +98,7 @@ export default function ShuffleTeams() {
 
   const handleAttributeChange = (
     division: number,
-    playerKey: "player1" | "player2",
+    playerKey: 'player1' | 'player2',
     value: string
   ) => {
     const playerName = selectedPlayers[division][playerKey];
@@ -155,12 +155,12 @@ export default function ShuffleTeams() {
 
     setTeams([
       {
-        name: "Team Red",
+        name: 'Team Red',
         players: team1,
         totalRating: calculateTeamRating(team1),
       },
       {
-        name: "Team Blue",
+        name: 'Team Blue',
         players: team2,
         totalRating: calculateTeamRating(team2),
       },
@@ -172,7 +172,7 @@ export default function ShuffleTeams() {
     playerKey,
   }: {
     division: number;
-    playerKey: "player1" | "player2";
+    playerKey: 'player1' | 'player2';
   }) => {
     const playerName = selectedPlayers[division][playerKey];
     if (!playerName) return null;
@@ -260,7 +260,7 @@ export default function ShuffleTeams() {
                   <Select
                     value={selectedPlayers[divisionNumber].player1}
                     onValueChange={(value) =>
-                      handlePlayerSelect(divisionNumber, "player1", value)
+                      handlePlayerSelect(divisionNumber, 'player1', value)
                     }
                   >
                     <SelectTrigger className="w-full bg-white">
@@ -292,7 +292,7 @@ export default function ShuffleTeams() {
                   <Select
                     value={selectedPlayers[divisionNumber].player2}
                     onValueChange={(value) =>
-                      handlePlayerSelect(divisionNumber, "player2", value)
+                      handlePlayerSelect(divisionNumber, 'player2', value)
                     }
                   >
                     <SelectTrigger className="w-full bg-white">
@@ -335,12 +335,12 @@ export default function ShuffleTeams() {
             transition-all duration-300
             ${
               isAllPlayersSelected()
-                ? "bg-[#00447c] text-white hover:bg-[#003366] shadow-lg hover:shadow-xl"
-                : "bg-gray-200 text-gray-400 cursor-not-allowed"
+                ? 'bg-[#00447c] text-white hover:bg-[#003366] shadow-lg hover:shadow-xl'
+                : 'bg-gray-200 text-gray-400 cursor-not-allowed'
             }
           `}
         >
-          {isAllPlayersSelected() ? "Generate Teams" : "Select all players"}
+          {isAllPlayersSelected() ? 'Generate Teams' : 'Select all players'}
         </button>
 
         {/* Results Section */}
